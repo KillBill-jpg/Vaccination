@@ -18,21 +18,24 @@
 		mysqli_close ($uneConnexion) ;
 	}
 
-	function insertCentre ($tab){
-		//on se connecte à la base de données 
-		$uneConnexion = connexion(); 
-
-		//on rédige la requete 
-		$requete ="insert into centre values(null, '"
-			. $tab['nom']."','".$tab['adresse']."','"
-			. $tab['typecentre']."','".$tab['telephone']."'); ";
-
-		//on execute la requete 
-		mysqli_query($uneConnexion, $requete);
-
-		//on ferme la connexion 
+	function insertCentre($tab) {
+		// Connect to the database
+		$uneConnexion = connexion();
+	
+		// Prepare the SQL statement
+		$requete = $uneConnexion->prepare("INSERT INTO centre VALUES (NULL, ?, ?, ?, ?)");
+	
+		// Bind the parameters
+		$requete->bind_param("ssss", $tab['nom'], $tab['adresse'], $tab['typecentre'], $tab['telephone']);
+	
+		// Execute the statement
+		$requete->execute();
+	
+		// Close the statement and connection
+		$requete->close();
 		deconnexion($uneConnexion);
 	}
+	
 
 	function insertVaccin ($tab){
 		//on se connecte à la base de données 
@@ -51,40 +54,47 @@
 		deconnexion($uneConnexion);
 	}
 
-	function insertPersonne ($tab){
-		//on se connecte à la base de données 
-		$uneConnexion = connexion(); 
-
-		//on rédige la requete 
-		$requete ="insert into personne values(null, '"
-			. $tab['nom']."','".$tab['prenom']."','"
-			. $tab['adresse']."','"
-			. $tab['age']."','".$tab['email']."','"
-			. $tab['mdp']."','".$tab['role']."'); ";
-
-		//on execute la requete 
-		mysqli_query($uneConnexion, $requete);
-
-		//on ferme la connexion 
+	function insertPersonne($tab) {
+		// Connect to the database
+		$uneConnexion = connexion();
+	
+		// Prepare the SQL statement without 'prenom'
+		$requete = $uneConnexion->prepare("INSERT INTO personne (idpersonne, nom, adresse, age, email, mdp, role) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+	
+		// Bind the parameters without 'prenom'
+		$requete->bind_param("ssiisss", $tab['nom'], $tab['adresse'], $tab['age'], $tab['email'], $tab['mdp'], $tab['role']);
+	
+		// Execute the statement
+		$requete->execute();
+	
+		// Close the statement and connection
+		$requete->close();
 		deconnexion($uneConnexion);
 	}
-
-	function insertVaccination ($tab){
-		//on se connecte à la base de données 
-		$uneConnexion = connexion(); 
-
-		//on rédige la requete 
-		$requete ="insert into vaccination values(null, '"
-			. $tab['dateVaccin']."','".$tab['rapport']."','"
-			. $tab['idcentre']."','"
-			. $tab['idvaccin']."','".$tab['idpersonne']."'); ";
-
-		//on execute la requete 
-		mysqli_query($uneConnexion, $requete);
-
-		//on ferme la connexion 
+	
+	
+	function insertVaccination($tab) {
+		// Connect to the database
+		$uneConnexion = connexion();
+	
+		// Debugging: Print the values being inserted
+		echo "Inserting vaccination with idcentre: " . $tab['idcentre'] . ", idvaccin: " . $tab['idvaccin'] . ", idpersonne: " . $tab['idpersonne'];
+	
+		// Prepare the SQL statement
+		$requete = $uneConnexion->prepare("INSERT INTO vaccination (idvaccination, dateVaccin, rapport, idcentre, idvaccin, idpersonne) VALUES (NULL, ?, ?, ?, ?, ?)");
+	
+		// Bind the parameters
+		$requete->bind_param("ssiii", $tab['dateVaccin'], $tab['rapport'], $tab['idcentre'], $tab['idvaccin'], $tab['idpersonne']);
+	
+		// Execute the statement
+		$requete->execute();
+	
+		// Close the statement and connection
+		$requete->close();
 		deconnexion($uneConnexion);
 	}
+	
+	
 
 	function selectAllCentres ()
 	{
@@ -144,11 +154,6 @@
 		deconnexion($uneConnexion);
 	}
 ?> 
- 
-
-
-
-
 
 
 
