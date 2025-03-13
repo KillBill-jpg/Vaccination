@@ -153,7 +153,105 @@
 		mysqli_query($uneConnexion, $requete);
 		deconnexion($uneConnexion);
 	}
+	function editCentre($idcentre, $tab) {
+		$uneConnexion = connexion();
+	
+		if (!$uneConnexion) {
+			die("Erreur de connexion : " . mysqli_connect_error());
+		}
+	
+		$requete = $uneConnexion->prepare("UPDATE centre SET nom = ?, adresse = ?, typecentre = ?, telephone = ? WHERE idcentre = ?");
+		
+		if (!$requete) {
+			die("Erreur de préparation : " . $uneConnexion->error);
+		}
+	
+		$requete->bind_param("ssssi", $tab['nom'], $tab['adresse'], $tab['typecentre'], $tab['telephone'], $idcentre);
+	
+		if (!$requete->execute()) {
+			die("Erreur d'exécution : " . $requete->error);
+		}
+	
+		echo "Mise à jour réussie !";
+	
+		$requete->close();
+		deconnexion($uneConnexion);
+	}
+	
+	function editPersonne($idpersonne, $tab) {
+		$uneConnexion = connexion();
+	
+		if (!$uneConnexion) {
+			die("Erreur de connexion : " . mysqli_connect_error());
+		}
+	
+		$requete = $uneConnexion->prepare("UPDATE personne SET nom = ?, prenom = ?, adresse = ?, age = ?, email = ?, mdp = ?, role = ? WHERE idpersonne = ?");
+		
+		if (!$requete) {
+			die("Erreur de préparation : " . $uneConnexion->error);
+		}
+	
+		$requete->bind_param("sssisssi", $tab['nom'], $tab['prenom'], $tab['adresse'], $tab['age'], $tab['email'], $tab['mdp'], $tab['role'], $idpersonne);
+	
+		if (!$requete->execute()) {
+			die("Erreur d'exécution : " . $requete->error);
+		}
+	
+		echo "Mise à jour réussie !";
+	
+		$requete->close();
+		deconnexion($uneConnexion);
+	}
+
+	function editVaccin($idvaccin, $tab) {
+		$uneConnexion = connexion();
+	
+		if (!$uneConnexion) {
+			die("Erreur de connexion : " . mysqli_connect_error());
+		}
+	
+		$requete = $uneConnexion->prepare("UPDATE vaccin SET designation = ?, dosage = ?, rappel = ?, c_indication = ?, laboratoire = ? WHERE idvaccin = ?");
+		
+		if (!$requete) {
+			die("Erreur de préparation : " . $uneConnexion->error);
+		}
+	
+		$requete->bind_param("sssssi", $tab['designation'], $tab['dosage'], $tab['rappel'], $tab['c_indication'], $tab['laboratoire'], $idvaccin);
+	
+		if (!$requete->execute()) {
+			die("Erreur d'exécution : " . $requete->error);
+		}
+	
+		echo "Mise à jour réussie !";
+	
+		$requete->close();
+		deconnexion($uneConnexion);
+	}
+	
+	function editVaccination($idvaccination, $tab) {
+		$uneConnexion = connexion();
+	
+		if (!$uneConnexion) {
+			die("Erreur de connexion : " . mysqli_connect_error());
+		}
+	
+		$requete = $uneConnexion->prepare("UPDATE vaccination SET dateVaccin = ?, rapport = ? WHERE idvaccination = ?");
+		
+		if (!$requete) {
+			die("Erreur de préparation : " . $uneConnexion->error);
+		}
+	
+		$requete->bind_param("ssi", $tab['dateVaccin'], $tab['rapport'], $idvaccination);
+	
+		if (!$requete->execute()) {
+			die("Erreur d'exécution : " . $requete->error);
+		}
+	
+		echo "Mise à jour réussie !";
+	
+		$requete->close();
+		deconnexion($uneConnexion);
+	}
+	
 ?> 
-
-
-
+ 
