@@ -1,5 +1,26 @@
 <h3> Liste des Personnes </h3>
 
+<?php
+if (isset($_POST['modifier'])) {
+    $idpersonne = $_POST['idpersonne'];
+    $tab = [
+        'nom' => $_POST['nom'],
+		'prenom' => $_POST['prenom'],
+        'adresse' => $_POST['adresse'],
+        'age' => $_POST['age'],
+        'email' => $_POST['email']
+		'mdp' => $_POST['mdp'],
+		'role' => $_POST['role'],
+    ];
+
+    editPersonne($idpersonne, $tab);
+    
+    // Redirection après modification
+    header("Location: index.php?page=2");
+    exit();
+}
+?>
+
 <table border="1"> 
 	<tr>
 		<td> ID Personne</td>
@@ -25,7 +46,7 @@
 
 		echo " <td>  "; 
 		echo "<a href='index.php?page=4&action=sup&idpersonne=".$unePersonne['idpersonne']."'> <img src='images/supprimer.png' height='30' width='30'> </a>"; 
-
+		echo "<a href='index.php?page=4&action=edit&idpersonne=" . urlencode($unePersonne['idpersonne']) . "'> <img src='images/editer.png' height='30' width='30'> </a>";
 		echo " </td> ";
 		echo " </tr> ";
 	}
