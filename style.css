@@ -1,0 +1,64 @@
+
+
+header {
+    background: linear-gradient(#d6fffd, #defcd1);
+}
+
+header h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+body {
+    background-color: #d6fffd;
+}
+
+.photos{
+    margin: 20px;
+    display: flex;
+}
+
+.photo {
+    font-family: none;
+    border-radius: 90px;
+    margin: 10px;
+    height: auto;
+    width: 90px;
+}
+
+.photo:hover{
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+footer{
+    text-align: center;
+    background: linear-gradient(#d6fffd, #defcd1);
+    border: 1px;
+    border-radius: 30px;
+}
+
+.coordonees{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.logo-footer {
+    height: 50px;
+    width: auto;
+    margin: 20px;
+    padding-top: 10px;
+}
+
+.logo-footer:hover{
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+}
